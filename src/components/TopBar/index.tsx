@@ -3,6 +3,7 @@ import { Box, Typography } from "@mui/material";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { Logo } from "../../assets/logo";
 import useAuth from "../../hooks/useAuth";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 interface Props {
   redirectPath?: string;
@@ -70,10 +71,7 @@ export default function TopBar() {
           </Box>
         ) : (
           <Box sx={styles.options}>
-            <Typography sx={{ fontSize: "15px" }} onClick={() => signOut()}>
-              {" "}
-              LOGOUT
-            </Typography>
+            <LogoutIcon style={{ cursor: "pointer" }} onClick={handleSignOut} />
           </Box>
         )}
       </Box>
