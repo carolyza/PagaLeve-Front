@@ -96,7 +96,7 @@ function SignIn() {
       } = await api.signIn({ email, password });
 
       signIn(token);
-      navigate("/app/disciplinas");
+      navigate("/app");
     } catch (error: Error | AxiosError | any) {
       if (error.response) {
         setMessage({

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import { Logo } from "../../assets/logo";
+import useAuth from "../../hooks/useAuth";
 
 interface Props {
   redirectPath?: string;
@@ -24,12 +25,24 @@ const styles = {
   },
 };
 
-export default function TopBar({ redirectPath = "/adicionar" }: Props) {
+export default function TopBar() {
   const navigate = useNavigate();
+  const { token, signOut } = useAuth();
 
-  function createNew() {
-    navigate("/adicionar");
+  function login() {
+    navigate("/login");
   }
+
+  function signUp() {
+    navigate("/");
+  }
+
+  function handleSignOut() {
+    navigate("/login");
+    signOut();
+    console.log(token);
+  }
+
   return (
     <Box
       sx={{
@@ -44,13 +57,25 @@ export default function TopBar({ redirectPath = "/adicionar" }: Props) {
     >
       <Box sx={styles.top}>
         <Logo height="10px" width="15px" />
-        <Box sx={styles.options}>
-          <Typography sx={{ fontSize: "15px" }}>LOGIN</Typography>
-          <Typography sx={{ fontSize: "15px" }} onClick={createNew}>
-            {" "}
-            CADASTRO
-          </Typography>
-        </Box>
+
+        {!token ? (
+          <Box sx={styles.options}>
+            <Typography sx={{ fontSize: "15px" }} onClick={() => login()}>
+              LOGIN
+            </Typography>
+            <Typography sx={{ fontSize: "15px" }} onClick={() => signUp()}>
+              {" "}
+              CADASTRO
+            </Typography>
+          </Box>
+        ) : (
+          <Box sx={styles.options}>
+            <Typography sx={{ fontSize: "15px" }} onClick={() => signOut()}>
+              {" "}
+              LOGOUT
+            </Typography>
+          </Box>
+        )}
       </Box>
       <Box />
     </Box>

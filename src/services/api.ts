@@ -9,6 +9,13 @@ interface UserData {
   password: string;
 }
 
+export interface Customers {
+  id: number;
+  name: string;
+  phone: string;
+  email: string;
+}
+
 function getConfig(token: string) {
   return {
     headers: {
@@ -17,7 +24,13 @@ function getConfig(token: string) {
   };
 }
 
+async function getCustomers(token: string) {
+  const config = getConfig(token);
+  return baseAPI.get<{ customers: Customers[] }>("/customers", config);
+}
+
 async function signUp(signUpData: UserData) {
+  console.log(signUpData);
   await baseAPI.post("/sign-up", signUpData);
 }
 
@@ -28,6 +41,7 @@ async function signIn(signInData: UserData) {
 const api = {
   signUp,
   signIn,
+  getCustomers,
 };
 
 export default api;
