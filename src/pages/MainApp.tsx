@@ -66,25 +66,15 @@ const styles = {
 
 function MainApp({ redirectPath = "/login" }: Props) {
   const navigate = useNavigate();
-  const { token, signOut } = useAuth();
-  const [customers, setCustomers] = useState<Customers[]>([]);
-  const teste = [
-    {
-      id: 1,
-      name: "Carol",
-      phone: "21995278647",
-      email: "caroline.y.ldm@gmail.com",
-    },
-  ];
-
-  const title = { name: " Nome", phone: "Telefone", email: "Email" };
+  const { token, userId } = useAuth();
+  const [customers, setCustomers] = useState<any | null>([]);
 
   useEffect(() => {
     async function loadPage() {
       if (!token) return;
 
-      //const { data: customersData } = await api.getCustomers(token);
-      setCustomers(teste);
+      const { data: customersData } = await api.getCustomers(token, userId);
+      setCustomers(customersData.customers);
     }
     loadPage();
   }, [token]);
@@ -93,8 +83,21 @@ function MainApp({ redirectPath = "/login" }: Props) {
     return <Navigate to={redirectPath} replace />;
   }
 
-  function testingButton() {
-    console.log("oi");
+  function insertContact() {
+    navigate(`/app/adicionar/${userId}`);
+  }
+
+  async function deleteContact(id: number) {
+    const removed = await api.deleteContact(userId, id);
+    if (removed) {
+      if (!token) return;
+      const { data: customersData } = await api.getCustomers(token, userId);
+      setCustomers(customersData.customers);
+    }
+  }
+
+  async function updateContact(id: number) {
+    navigate(`/app/update/${id}`);
   }
 
   return (
@@ -108,7 +111,7 @@ function MainApp({ redirectPath = "/login" }: Props) {
         >
           Contatos
         </Typography>
-        <Button onClick={() => testingButton()}>
+        <Button onClick={() => insertContact()}>
           <PersonAddIcon
             sx={{
               color: "white",
@@ -122,7 +125,7 @@ function MainApp({ redirectPath = "/login" }: Props) {
         </Button>
 
         <Box sx={{ marginTop: "20px" }}>
-          {customers.map((customer) => (
+          {customers.map((c: any) => (
             <Box
               sx={{
                 position: "relative",
@@ -143,16 +146,16 @@ function MainApp({ redirectPath = "/login" }: Props) {
                 }}
               >
                 <Box sx={{ display: "flex", flexDirection: "row" }}>
-                  <Typography fontWeight="bold">{customer.name}</Typography>
+                  <Typography fontWeight="bold">{c.name}</Typography>
                   <Box sx={{ position: "absolute", right: "10px" }}>
-                    <DeleteIcon />
-                    <EditIcon />
+                    <DeleteIcon onClick={() => deleteContact(c.id)} />
+                    <EditIcon onClick={() => updateContact(c.id)} />
                   </Box>
                 </Box>
               </Box>
-              <Box key={customer.id} sx={styles.contact}>
-                <Typography fontWeight="bold">{customer.email}</Typography>
-                <Typography fontWeight="bold">{customer.phone}</Typography>
+              <Box key={c.id} sx={styles.contact}>
+                <Typography fontWeight="bold">{c.email}</Typography>
+                <Typography fontWeight="bold">{c.phone}</Typography>
               </Box>
             </Box>
           ))}
