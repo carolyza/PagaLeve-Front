@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
-
+import CreateContact from "../components/CreateContact";
 import useAuth from "../hooks/useAuth";
 import React, { useEffect, useState } from "react";
 import api, { Customers } from "../services/api";
@@ -16,6 +16,7 @@ import Image from "../assets/degradee.svg";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import { Create } from "@mui/icons-material";
 
 interface Props {
   redirectPath?: string;
@@ -68,31 +69,37 @@ function MainApp({ redirectPath = "/login" }: Props) {
   const navigate = useNavigate();
   const { token, userId } = useAuth();
   const [customers, setCustomers] = useState<any | null>([]);
+  const [createNew, setCreateNew] = useState<boolean>(false);
+
+  async function loadPage() {
+    if (!token) return;
+
+    const { data: customersData } = await api.getCustomers(token, userId);
+
+    setCustomers(customersData);
+  }
 
   useEffect(() => {
-    async function loadPage() {
-      if (!token) return;
-
-      const { data: customersData } = await api.getCustomers(token, userId);
-      setCustomers(customersData.customers);
-    }
     loadPage();
-  }, [token]);
+  }, [createNew]);
 
   if (!token) {
     return <Navigate to={redirectPath} replace />;
   }
 
-  function insertContact() {
-    navigate(`/app/adicionar/${userId}`);
+  function openCreate() {
+    setCreateNew(true);
   }
 
   async function deleteContact(id: number) {
+    console.log(id);
     const removed = await api.deleteContact(userId, id);
     if (removed) {
       if (!token) return;
+
       const { data: customersData } = await api.getCustomers(token, userId);
-      setCustomers(customersData.customers);
+      setCustomers(customersData);
+      //setCreateNew(false);
     }
   }
 
@@ -111,21 +118,25 @@ function MainApp({ redirectPath = "/login" }: Props) {
         >
           Contatos
         </Typography>
-        <Button onClick={() => insertContact()}>
-          <PersonAddIcon
-            sx={{
-              color: "white",
-              backgroundColor: "#F436F1",
-              padding: "4px",
-              borderRadius: "5px",
-              position: "absolute",
-              right: "0px",
-            }}
-          />
-        </Button>
+        {!createNew ? (
+          <Button onClick={() => openCreate()}>
+            <PersonAddIcon
+              sx={{
+                color: "white",
+                backgroundColor: "#F436F1",
+                padding: "4px",
+                borderRadius: "5px",
+                position: "absolute",
+                right: "0px",
+              }}
+            />
+          </Button>
+        ) : (
+          <CreateContact setCreateNew={setCreateNew} loadPage={loadPage} />
+        )}
 
         <Box sx={{ marginTop: "20px" }}>
-          {customers.map((c: any) => (
+          {customers?.map((c: any) => (
             <Box
               sx={{
                 position: "relative",
@@ -148,12 +159,12 @@ function MainApp({ redirectPath = "/login" }: Props) {
                 <Box sx={{ display: "flex", flexDirection: "row" }}>
                   <Typography fontWeight="bold">{c.name}</Typography>
                   <Box sx={{ position: "absolute", right: "10px" }}>
-                    <DeleteIcon onClick={() => deleteContact(c.id)} />
-                    <EditIcon onClick={() => updateContact(c.id)} />
+                    <DeleteIcon onClick={() => deleteContact(c._id)} />
+                    <EditIcon onClick={() => updateContact(c._id)} />
                   </Box>
                 </Box>
               </Box>
-              <Box key={c.id} sx={styles.contact}>
+              <Box key={c._id} sx={styles.contact}>
                 <Typography fontWeight="bold">{c.email}</Typography>
                 <Typography fontWeight="bold">{c.phone}</Typography>
               </Box>

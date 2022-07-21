@@ -102,7 +102,6 @@ function SignUp() {
     }
 
     try {
-      console.log(formData);
       await api.signUp({ email, password });
       setMessage({ type: "success", text: "Cadastro efetuado com sucesso!" });
       navigate("/login");

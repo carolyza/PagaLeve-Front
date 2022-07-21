@@ -95,7 +95,12 @@ function SignIn() {
         data: { token },
       } = await api.signIn({ email, password });
 
-      signIn(token);
+      const { data } = await api.getUserId(token, email);
+      console.log(data);
+
+      const loginData: any = { token, data };
+
+      signIn(loginData);
       navigate("/app");
     } catch (error: Error | AxiosError | any) {
       if (error.response) {
