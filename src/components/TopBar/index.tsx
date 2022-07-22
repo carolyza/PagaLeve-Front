@@ -41,7 +41,6 @@ export default function TopBar() {
   function handleSignOut() {
     navigate("/login");
     signOut();
-    console.log(token);
   }
 
   return (

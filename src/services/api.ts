@@ -26,7 +26,7 @@ function getConfig(token: string) {
 
 async function getCustomers(token: string, user: number) {
   const config = getConfig(token);
-  console.log(user);
+
   return baseAPI.get<{ customers: Customers[] }>(`/customers/${user}`, config);
 }
 
@@ -47,14 +47,11 @@ async function getList(user: any) {
 }
 
 async function updateList(id: string, createData: Customers) {
-  console.log(id);
-  console.log(createData);
   return baseAPI.put(`/update/${id}`, createData);
 }
 
-async function deleteContact(user: any, id: number) {
-  console.log(user, id);
-  return baseAPI.delete(`/delete/${id}`, user);
+async function deleteContact(id: number) {
+  return baseAPI.delete(`/delete/${id}`);
 }
 
 async function getUserId(token: string, signInData: any) {

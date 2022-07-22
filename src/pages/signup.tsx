@@ -81,7 +81,6 @@ function SignUp() {
   }
 
   async function handleSubmit(e: React.FormEvent) {
-    console.log("banana");
     e.preventDefault();
     setMessage(null);
 

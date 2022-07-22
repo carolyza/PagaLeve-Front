@@ -96,7 +96,6 @@ function SignIn() {
       } = await api.signIn({ email, password });
 
       const { data } = await api.getUserId(token, email);
-      console.log(data);
 
       const loginData: any = { token, data };
 

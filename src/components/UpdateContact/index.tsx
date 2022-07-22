@@ -104,8 +104,6 @@ export default function UpdateContact({
     const { userId, name, email, phone } = formData;
 
     try {
-      console.log(contactInfo._id);
-      console.log({ userId, name, email, phone });
       await api.updateList(contactInfo._id, { userId, name, email, phone });
       setMessage({
         type: "success",
@@ -130,7 +128,16 @@ export default function UpdateContact({
 
   return (
     <>
-      <EditIcon onClick={() => updateContact()} />
+      <EditIcon
+        sx={{
+          backgroundColor: "white",
+          padding: "3px",
+          borderRadius: "25px",
+          position: "absolute",
+          right: "0px",
+        }}
+        onClick={() => updateContact()}
+      />
       <Form onSubmit={handleSubmit}>
         <Dialog
           open={update}
