@@ -46,9 +46,10 @@ async function getList(user: any) {
   return baseAPI.get("/list", user);
 }
 
-async function updateList(user: number, id: number, data: any) {
-  const updateData = { user, id, data };
-  return baseAPI.put("/update", updateData);
+async function updateList(id: string, createData: Customers) {
+  console.log(id);
+  console.log(createData);
+  return baseAPI.put(`/update/${id}`, createData);
 }
 
 async function deleteContact(user: any, id: number) {

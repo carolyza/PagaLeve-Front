@@ -13,10 +13,11 @@ import React, { useEffect, useState } from "react";
 import api, { Customers } from "../services/api";
 import TopBar from "../components/TopBar";
 import Image from "../assets/degradee.svg";
-import EditIcon from "@mui/icons-material/Edit";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import { Create } from "@mui/icons-material";
+import UpdateContact from "../components/UpdateContact";
 
 interface Props {
   redirectPath?: string;
@@ -99,12 +100,7 @@ function MainApp({ redirectPath = "/login" }: Props) {
 
       const { data: customersData } = await api.getCustomers(token, userId);
       setCustomers(customersData);
-      //setCreateNew(false);
     }
-  }
-
-  async function updateContact(id: number) {
-    navigate(`/app/update/${id}`);
   }
 
   return (
@@ -132,17 +128,23 @@ function MainApp({ redirectPath = "/login" }: Props) {
             />
           </Button>
         ) : (
-          <CreateContact setCreateNew={setCreateNew} loadPage={loadPage} />
+          <CreateContact
+            createNew={createNew}
+            setCreateNew={setCreateNew}
+            loadPage={loadPage}
+          />
         )}
 
         <Box sx={{ marginTop: "20px" }}>
           {customers?.map((c: any) => (
             <Box
+              key={c._id}
               sx={{
                 position: "relative",
                 border: "2px solid #F436F1",
                 padding: "5px",
                 borderRadius: "5px",
+                marginBottom: "10px",
                 boxShadow:
                   " rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;",
               }}
@@ -160,11 +162,11 @@ function MainApp({ redirectPath = "/login" }: Props) {
                   <Typography fontWeight="bold">{c.name}</Typography>
                   <Box sx={{ position: "absolute", right: "10px" }}>
                     <DeleteIcon onClick={() => deleteContact(c._id)} />
-                    <EditIcon onClick={() => updateContact(c._id)} />
+                    <UpdateContact loadPage={loadPage} contactInfo={c} />
                   </Box>
                 </Box>
               </Box>
-              <Box key={c._id} sx={styles.contact}>
+              <Box sx={styles.contact}>
                 <Typography fontWeight="bold">{c.email}</Typography>
                 <Typography fontWeight="bold">{c.phone}</Typography>
               </Box>

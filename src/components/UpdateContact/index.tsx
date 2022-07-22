@@ -8,6 +8,7 @@ import {
   DialogActions,
   Slide,
 } from "@mui/material";
+import EditIcon from "@mui/icons-material/Edit";
 import { AxiosError } from "axios";
 import React, { useState } from "react";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
@@ -63,15 +64,20 @@ interface FormData {
   phone: string;
 }
 
-export default function CreateNew({ createNew, setCreateNew, loadPage }: any) {
+export default function UpdateContact({
+  contactInfo,
+
+  loadPage,
+}: any) {
   const { setMessage } = useAlert();
   const navigate = useNavigate();
   const { userId } = useAuth();
+  const [update, setUpdate] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormData>({
     userId: userId,
-    name: "",
-    email: "",
-    phone: "",
+    name: contactInfo.name,
+    email: contactInfo.email,
+    phone: contactInfo.phone,
   });
 
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -79,7 +85,11 @@ export default function CreateNew({ createNew, setCreateNew, loadPage }: any) {
   }
 
   function closeDialog() {
-    setCreateNew(false);
+    setUpdate(false);
+  }
+
+  async function updateContact() {
+    setUpdate(true);
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -94,13 +104,15 @@ export default function CreateNew({ createNew, setCreateNew, loadPage }: any) {
     const { userId, name, email, phone } = formData;
 
     try {
-      await api.createContact({ userId, name, email, phone });
+      console.log(contactInfo._id);
+      console.log({ userId, name, email, phone });
+      await api.updateList(contactInfo._id, { userId, name, email, phone });
       setMessage({
         type: "success",
-        text: "Novo contato cadastrado com sucesso!",
+        text: "Contato atualizado com sucesso!",
       });
+      setUpdate(false);
       loadPage();
-      setCreateNew(false);
     } catch (error: Error | AxiosError | any) {
       if (error.response) {
         setMessage({
@@ -117,59 +129,62 @@ export default function CreateNew({ createNew, setCreateNew, loadPage }: any) {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Dialog
-        open={createNew}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={closeDialog}
-        maxWidth="sm"
-      >
-        <DialogTitle sx={styles.title} variant="h4" component="h1">
-          Adicionar contato
-        </DialogTitle>
-        <DialogContent>
-          <TextField
-            name="name"
-            sx={styles.input}
-            label="Nome"
-            type="name"
-            variant="outlined"
-            onChange={handleInputChange}
-            value={formData.name}
-          />
-          <TextField
-            name="email"
-            sx={styles.input}
-            label="Email"
-            onChange={handleInputChange}
-            value={formData.email}
-          />
-          <TextField
-            name="phone"
-            sx={styles.input}
-            label="Telefone"
-            onChange={handleInputChange}
-            value={formData.phone}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Box sx={styles.actionsContainer}>
-            <Button onClick={() => closeDialog()} sx={{ color: "#F436F1" }}>
-              CANCELAR
-            </Button>
+    <>
+      <EditIcon onClick={() => updateContact()} />
+      <Form onSubmit={handleSubmit}>
+        <Dialog
+          open={update}
+          TransitionComponent={Transition}
+          keepMounted
+          onClose={closeDialog}
+          maxWidth="sm"
+        >
+          <DialogTitle sx={styles.title} variant="h4" component="h1">
+            {"Atualizar contato"}
+          </DialogTitle>
+          <DialogContent>
+            <TextField
+              name="name"
+              sx={styles.input}
+              label="Nome"
+              type="name"
+              variant="outlined"
+              onChange={handleInputChange}
+              value={formData.name}
+            />
+            <TextField
+              name="email"
+              sx={styles.input}
+              label="Email"
+              onChange={handleInputChange}
+              value={formData.email}
+            />
+            <TextField
+              name="phone"
+              sx={styles.input}
+              label="Telefone"
+              onChange={handleInputChange}
+              value={formData.phone}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Box sx={styles.actionsContainer}>
+              <Button onClick={() => closeDialog()} sx={{ color: "#F436F1" }}>
+                CANCELAR
+              </Button>
 
-            <Button
-              sx={{ backgroundColor: "#F436F1" }}
-              variant="contained"
-              type="submit"
-              onClick={handleSubmit}
-            >
-              SALVAR
-            </Button>
-          </Box>
-        </DialogActions>
-      </Dialog>
-    </Form>
+              <Button
+                sx={{ backgroundColor: "#F436F1" }}
+                variant="contained"
+                type="submit"
+                onClick={handleSubmit}
+              >
+                SALVAR
+              </Button>
+            </Box>
+          </DialogActions>
+        </Dialog>
+      </Form>
+    </>
   );
 }
