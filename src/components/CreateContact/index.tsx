@@ -27,19 +27,6 @@ const Transition = React.forwardRef(function Transition(
 });
 
 const styles = {
-  container: {
-    // marginTop: "180px",
-    width: "90%",
-    minHeight: "30vh",
-    display: "flex",
-    flexDirection: "column",
-    textAlign: "center",
-    backgroundColor: "rgba(255,255,255)",
-    zIndex: "9999",
-    padding: "20px",
-    borderRadius: "8px",
-    boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px;",
-  },
   title: { marginBottom: "30px" },
   dividerContainer: {
     display: "flex",
@@ -48,7 +35,7 @@ const styles = {
     marginTop: "16px",
     marginBottom: "26px",
   },
-  input: { marginBottom: "16px" },
+  input: { margin: "16px" },
   actionsContainer: {
     display: "flex",
     justifyContent: "space-between",

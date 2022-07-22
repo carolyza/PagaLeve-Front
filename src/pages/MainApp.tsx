@@ -31,6 +31,7 @@ const styles = {
     backgroundRepeat: "no-repeat",
     backgroundSize: "cover",
     width: "100vw",
+    minHeight: "100vh",
     height: "100%",
     justifyContent: "center",
     alignItems: "center",

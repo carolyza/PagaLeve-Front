@@ -49,7 +49,7 @@ const styles = {
     marginTop: "16px",
     marginBottom: "26px",
   },
-  input: { marginBottom: "16px" },
+  input: { margin: "16px" },
   actionsContainer: {
     display: "flex",
     justifyContent: "space-between",
