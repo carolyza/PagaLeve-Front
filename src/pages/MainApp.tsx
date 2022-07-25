@@ -1,17 +1,9 @@
-import {
-  Box,
-  Button,
-  Divider,
-  Link,
-  TextField,
-  Typography,
-  Collapse,
-} from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import CreateContact from "../components/CreateContact";
 import useAuth from "../hooks/useAuth";
-import React, { useEffect, useState } from "react";
-import api, { Customers } from "../services/api";
+import { useEffect, useState } from "react";
+import api from "../services/api";
 import TopBar from "../components/TopBar";
 import Image from "../assets/degradee.svg";
 

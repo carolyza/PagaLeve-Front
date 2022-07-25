@@ -11,7 +11,6 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import { AxiosError } from "axios";
 import React, { useState } from "react";
-import { Link as RouterLink, useNavigate } from "react-router-dom";
 import Form from "../Form";
 import useAlert from "../../hooks/useAlert";
 import api from "../../services/api";
@@ -29,7 +28,6 @@ const Transition = React.forwardRef(function Transition(
 
 const styles = {
   container: {
-    // marginTop: "180px",
     width: "90%",
     minHeight: "30vh",
     display: "flex",
@@ -70,7 +68,7 @@ export default function UpdateContact({
   loadPage,
 }: any) {
   const { setMessage } = useAlert();
-  const navigate = useNavigate();
+
   const { userId } = useAuth();
   const [update, setUpdate] = useState<boolean>(false);
   const [formData, setFormData] = useState<FormData>({

@@ -1,13 +1,8 @@
-import styled from "@emotion/styled";
 import { Box, Typography } from "@mui/material";
-import { Navigate, Outlet, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Logo } from "../../assets/logo";
 import useAuth from "../../hooks/useAuth";
 import LogoutIcon from "@mui/icons-material/Logout";
-
-interface Props {
-  redirectPath?: string;
-}
 
 const styles = {
   top: {
