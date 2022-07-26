@@ -34,14 +34,16 @@ cd PagaLeve-Front
 npm install
 ```
 
-# Crie um arquivo .env 
+## Crie um arquivo .env 
 
 ### Iniciando o app
-```bash
+
 # Execute a aplicação
+```bash
 npm start
-# O servidor iniciará na porta:3000 - acesse http://localhost:3000
 ```
+# O servidor iniciará na porta:3000 - acesse http://localhost:3000
+
 
 <br/>
 
