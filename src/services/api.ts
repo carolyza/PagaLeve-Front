@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseAPI = axios.create({
-  baseURL: "https://git.heroku.com/pagaleve.git",
+  baseURL: "https://pagaleve.herokuapp.com/",
 });
 
 interface UserData {
