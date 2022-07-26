@@ -3,7 +3,7 @@
 ## Descrição 
 Salve os contatos de seus clientes protegidos por login e senha!
 
-##Link do Deploy para acessar o site
+## Link do Deploy para acessar o site
 https://paga-leve-front-git-main-carolyza.vercel.app/
 
 <br/>
@@ -16,17 +16,25 @@ https://paga-leve-front-git-main-carolyza.vercel.app/
 
 <br/>
 
-##Como rodar o projeto
+## Como rodar o projeto
+
+# Clone este repositório
 
 ```bash
-# Clone este repositório
 git clone https://github.com/starunz/PagaLeve-Front
+```
 # Acesse a pasta do projeto no terminal/cmd
+
+```bash
 cd PagaLeve-Front
+```
 # Instale as dependências
+
+```bash
 npm install
 ```
-#Crie um arquivo .env 
+
+# Crie um arquivo .env 
 
 ### Iniciando o app
 ```bash
