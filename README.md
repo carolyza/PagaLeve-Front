@@ -8,6 +8,18 @@ https://paga-leve-front-git-main-carolyza.vercel.app/
 
 <br/>
 
+## Ferramentas
+
+<div align="center">
+  <img src="https://img.shields.io/badge/-react-&?style=for-the-badge&logo=react&color=black" alt="React logo" />
+  <img src="https://img.shields.io/badge/-HTML-&?style=for-the-badge&logo=html5&color=black" alt="HTML logo" />
+  <img src="https://img.shields.io/badge/-CSS-&?style=for-the-badge&logo=css3&color=black" alt="CSS logo" />
+  <img src="https://img.shields.io/badge/-Heroku-&?style=for-the-badge&logo=heroku&color=black&logoColor=79589F" alt="Heroku logo" />
+  <img src="https://img.shields.io/badge/-Vercel-&?style=for-the-badge&logo=vercel&color=black" alt="Vercel logo" />
+  <img src="https://img.shields.io/badge/-Mui-&?style=for-the-badge&logo=mui&color=black" alt="MUI logo" />
+  
+</div>
+
 ### Features
 -  `Visualizar lista de contatos`
 -  `Adicionar um contato`
