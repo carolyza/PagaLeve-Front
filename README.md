@@ -9,10 +9,10 @@ https://paga-leve-front-git-main-carolyza.vercel.app/
 <br/>
 
 ### Features
-- [x] `Visualizar lista de contatos`
-- [x] `Adicionar um contato`
-- [x] `Editar informações do contato`
-- [x] `Excluir contato`
+-  `Visualizar lista de contatos`
+-  `Adicionar um contato`
+-  `Editar informações do contato`
+-  `Excluir contato`
 
 <br/>
 
@@ -36,13 +36,13 @@ npm install
 
 ## Crie um arquivo .env 
 
-### Iniciando o app
+# Iniciando o app
 
-# Execute a aplicação
+## Execute a aplicação
 ```bash
 npm start
 ```
-# O servidor iniciará na porta:3000 - acesse http://localhost:3000
+## O servidor iniciará na porta:3000 - acesse http://localhost:3000
 
 
 <br/>
