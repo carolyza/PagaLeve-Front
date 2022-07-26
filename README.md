@@ -16,19 +16,19 @@ https://paga-leve-front-git-main-carolyza.vercel.app/
 
 <br/>
 
-## Como rodar o projeto
+# Como rodar o projeto
 
-# Clone este repositório
+## Clone este repositório
 
 ```bash
 git clone https://github.com/carolyza/PagaLeve-Front
 ```
-# Acesse a pasta do projeto no terminal/cmd
+## Acesse a pasta do projeto no terminal/cmd
 
 ```bash
 cd PagaLeve-Front
 ```
-# Instale as dependências
+## Instale as dependências
 
 ```bash
 npm install
