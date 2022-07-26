@@ -21,7 +21,7 @@ https://paga-leve-front-git-main-carolyza.vercel.app/
 # Clone este repositório
 
 ```bash
-git clone https://github.com/starunz/PagaLeve-Front
+git clone https://github.com/carolyza/PagaLeve-Front
 ```
 # Acesse a pasta do projeto no terminal/cmd
 
