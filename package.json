@@ -27,7 +27,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "changelog": "auto-changelog --template changelog-template.hbs -p -u --commit-limit false",
+    "changelog-debug": "auto-changelog --template changelog-template.hbs -p --template json --output changelog-data.json"
   },
   "eslintConfig": {
     "extends": [
@@ -35,6 +37,14 @@
       "react-app/jest"
     ]
   },
+  "auto-changelog": {
+    "commitLimit": false,
+    "unreleased": true,
+    "includeBranch": [
+       "develop",
+       "master"
+    ]
+ },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -46,5 +56,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "auto-changelog": "^2.4.0"
   }
 }

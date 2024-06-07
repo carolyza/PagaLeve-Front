@@ -28,7 +28,7 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
 
-    opacity: "0.8",
+    opacity: "0.7",
     display: "flex",
 
     paddingTop: "100px",
