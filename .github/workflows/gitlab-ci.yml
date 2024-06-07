@@ -1,0 +1,20 @@
+# .gitlab-ci.yml
+
+image: node:latest
+stages:
+  - lint
+  - release
+lint:
+  stage: lint
+  script:
+    - npm run lint
+release:
+  stage: release
+  only:
+    - main
+    - next
+  script:
+    - echo "@doppelmutzi:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
+    - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${NPM_TOKEN}" >> .npmrc
+    - npm i -g semantic-release @semantic-release/gitlab @semantic-release/changelog @semantic-release/git @semantic-release/npm @semantic-release/commit-analyzer conventional-changelog-conventionalcommits
+    - npx semantic-release --debug --dry-run
