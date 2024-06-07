@@ -1,20 +1,36 @@
-# .gitlab-ci.yml
+name: Publish
 
-image: node:latest
-stages:
-  - lint
-  - release
-lint:
-  stage: lint
-  script:
-    - npm run lint
-release:
-  stage: release
-  only:
-    - main
-    - next
-  script:
-    - echo "@doppelmutzi:registry=https://${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/" > .npmrc
-    - echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${NPM_TOKEN}" >> .npmrc
-    - npm i -g semantic-release @semantic-release/gitlab @semantic-release/changelog @semantic-release/git @semantic-release/npm @semantic-release/commit-analyzer conventional-changelog-conventionalcommits
-    - npx semantic-release --debug --dry-run
+on:
+  push:
+    branches: [main]
+
+jobs:
+  publish:
+    name: Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.17.0
+          cache: yarn
+
+      - name: Install dependencies
+        run: |
+          yarn install --frozen-lockfile --non-interactive --ignore-scripts
+
+      - name: Build
+        run: |
+          yarn build
+
+      - name: Release
+        env:
+          GH_TOKEN: ${{ secrets.PAT_PAGALEVESOURCE }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+        run: yarn semantic-release
