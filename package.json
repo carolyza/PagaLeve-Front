@@ -27,6 +27,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "release": "standard-version",
     "eject": "react-scripts eject",
     "changelog": "auto-changelog --template changelog-template.hbs -p -u --commit-limit false",
     "changelog-debug": "auto-changelog --template changelog-template.hbs -p --template json --output changelog-data.json"
@@ -41,10 +42,10 @@
     "commitLimit": false,
     "unreleased": true,
     "includeBranch": [
-       "develop",
-       "master"
+      "develop",
+      "master"
     ]
- },
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -58,6 +59,7 @@
     ]
   },
   "devDependencies": {
-    "auto-changelog": "^2.4.0"
+    "auto-changelog": "^2.4.0",
+    "standard-version": "^9.5.0"
   }
 }
